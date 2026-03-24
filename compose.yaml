@@ -1,0 +1,27 @@
+services:
+  runner-1:
+    image: builder-go:test
+    container_name: runner-1
+    restart: always
+    volumes:
+      - runner-1-data:/home/runner
+      - gomodcache:/home/runner/go/pkg/mod
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+    environment:
+      - REGISTRATION_TOKEN=${RUNNER_TOKEN_1}
+
+  runner-2:
+    image: builder-go:test
+    container_name: runner-2
+    restart: always
+    volumes:
+      - runner-2-data:/home/runner
+      - gomodcache:/home/runner/go/pkg/mod
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+    environment:
+      - REGISTRATION_TOKEN=${RUNNER_TOKEN_2}
+
+volumes:
+  runner-1-data:
+  runner-2-data:
+  gomodcache:
